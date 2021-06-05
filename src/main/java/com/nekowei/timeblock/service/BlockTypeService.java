@@ -1,0 +1,45 @@
+package com.nekowei.timeblock.service;
+
+import com.nekowei.timeblock.entity.BlockTypeEntity;
+import com.nekowei.timeblock.repo.BlockTypeRepository;
+import com.nekowei.timeblock.vo.BlockTypeVo;
+import org.springframework.beans.BeanUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.stream.Collectors;
+
+@Service
+public class BlockTypeService {
+
+    @Autowired
+    private BlockTypeRepository blockTypeRepository;
+
+    public void save(BlockTypeEntity e) {
+        blockTypeRepository.save(e);
+    }
+
+    public List<BlockTypeVo> tree() {
+        List<BlockTypeEntity> list = blockTypeRepository.findAll();
+        return list.stream()
+                .map(this::copy)
+                .filter(e -> e.getParentId() == null)
+                .peek(e -> e.setDetail(list.stream()
+                        .filter(d -> d.getParentId() != null && d.getParentId().equals(e.getId()))
+                        .map(this::copy)
+                        .collect(Collectors.toList())
+                ))
+                .collect(Collectors.toList());
+    }
+
+    private BlockTypeVo copy(BlockTypeEntity e) {
+        BlockTypeVo vo = new BlockTypeVo();
+        BeanUtils.copyProperties(e, vo);
+        return vo;
+    }
+
+    public void add(BlockTypeEntity e) {
+        blockTypeRepository.save(e);
+    }
+}

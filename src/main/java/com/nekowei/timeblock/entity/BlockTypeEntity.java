@@ -3,20 +3,25 @@ package com.nekowei.timeblock.entity;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
 @NoArgsConstructor
 @Data
+@Table(name = "t_block_type")
 public class BlockTypeEntity {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+
+    @Column
     private Integer parentId;
+
+    @Column(nullable = false)
     private String name;
+
+    @Column
     private String color;
 
 }

@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <script src="jquery-3.6.0.min.js"></script>
+    <script src="time-block.js"></script>
+</head>
+
+<body>
+    <div id="type-list"></div>
+    <button onclick="$('#type-add').toggle()">+type</button>
+    <div id="type-add">
+        <form action="type/add" method="POST" id="type-add-submit">
+            <input name="name" />
+            <input name="color" id="type-add-color" />
+            <select name="parentId" id="type-add-select">
+                <option value="">-</option>
+            </select>
+            <button id="type-add-button" type="submit">add</button>
+        </form>
+    </div>
+</body>
+
+</html>
