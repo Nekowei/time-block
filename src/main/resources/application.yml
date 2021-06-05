@@ -1,6 +1,6 @@
-
 spring:
-  datasource:
-    url: jdbc:mysql://192.119.86.254:3306/time_block?zeroDateTimeBehavior=convertToNull&useUnicode=true&characterEncoding=UTF-8&useSSL=false
-    username: tb
-    password: Fuzam1ma@time_block
+  application:
+    name: "time-block"
+  config:
+    import: "file:/etc/nekowei/time-block.yml"
+
