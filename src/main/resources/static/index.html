@@ -2,13 +2,14 @@
 <html>
 
 <head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" type="text/css" href="time-block.css">
     <script src="jquery-3.6.0.min.js"></script>
     <script src="time-block.js"></script>
 </head>
 
 <body>
-    <div id="type-list"></div>
-    <button onclick="$('#type-add').toggle()">+type</button>
+    <button onclick="$('#type-add').toggle()">添加类型</button>
     <div id="type-add">
         <form action="type/add" method="POST" id="type-add-submit">
             <input name="name" />
@@ -19,6 +20,11 @@
             <button id="type-add-button" type="submit">add</button>
         </form>
     </div>
+    <br />
+    <button onclick="$('.type-button-edit').toggle();$('.type-button-delete').toggle();">编辑类型</button>
+    <br />
+    <div id="type-list"></div>
+    <br />
 </body>
 
 </html>

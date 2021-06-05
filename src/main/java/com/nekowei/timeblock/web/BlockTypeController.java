@@ -6,6 +6,7 @@ import com.nekowei.timeblock.vo.BlockTypeVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -24,7 +25,10 @@ public class BlockTypeController {
     }
 
     @PostMapping("add")
-    public ResponseEntity<Void> add(@ModelAttribute BlockTypeEntity e) {
+    public ResponseEntity<String> add(@ModelAttribute BlockTypeEntity e) {
+        if (!StringUtils.hasText(e.getName())) {
+            return new ResponseEntity<>("name cannot be empty", HttpStatus.BAD_REQUEST);
+        }
         blockTypeService.add(e);
         return new ResponseEntity<>(HttpStatus.OK);
     }

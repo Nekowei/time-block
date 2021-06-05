@@ -6,7 +6,9 @@ import com.nekowei.timeblock.vo.BlockTypeVo;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
+import javax.transaction.Transactional;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -39,7 +41,22 @@ public class BlockTypeService {
         return vo;
     }
 
+    @Transactional
     public void add(BlockTypeEntity e) {
-        blockTypeRepository.save(e);
+        if (e.getId() != null) {
+            BlockTypeEntity old = blockTypeRepository.getById(e.getId());
+            if (StringUtils.hasText(e.getColor())) {
+                old.setColor(e.getColor());
+            }
+            if (StringUtils.hasText(e.getName())) {
+                old.setName(e.getName());
+            }
+            if (e.getParentId() != null) {
+                old.setParentId(e.getParentId());
+            }
+            blockTypeRepository.save(old);
+        } else {
+            blockTypeRepository.save(e);
+        }
     }
 }
