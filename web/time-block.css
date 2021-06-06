@@ -1,0 +1,42 @@
+.type-list {
+    padding: 15px;
+}
+.type-div {
+    padding: 5px;
+    float: left;
+}
+
+#current-div {
+    position: relative;
+    width: 100%;
+    padding: 0 20%;
+    height: 100px;
+    margin: auto 40px;
+    float: left;
+}
+#current-type-div {
+    position: absolute;
+    top: 30px;
+    left: 10px;
+    height: 40px;
+}
+#current-date-div {
+    position: absolute;
+    top : 30px;
+    left: 220px;
+    height: 40px;
+}
+
+#time-list {
+    float: left;
+    width: 100%;
+    padding: 0 20%;
+}
+.time-list-hour-button {
+    width: 60px;
+    height: 30px;
+}
+.type-block {
+    width: 100px;
+    height: 30px;
+}

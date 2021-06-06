@@ -3,4 +3,19 @@ spring:
     name: "time-block"
   config:
     import: "file:/etc/nekowei/time-block.yml"
+  datasource:
+    hikari:
+      connectionTimeout: 30000
+      idleTimeout: 60000
+      maxLifetime: 180000
+  mvc:
+    format:
+      date: yyyy-MM-dd
+      date-time: yyyy-MM-dd HH:mm:ss
+      time: HH:mm:ss
+debug: false
+server:
+  servlet:
+    context-path: /tbapi
+
 

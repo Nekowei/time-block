@@ -33,4 +33,10 @@ public class BlockTypeController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
+    @PostMapping("delete")
+    public ResponseEntity<String> delete(@RequestParam("id") Integer id) {
+        blockTypeService.delete(id);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
 }

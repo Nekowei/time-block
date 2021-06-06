@@ -5,6 +5,7 @@ import com.nekowei.timeblock.repo.BlockTypeRepository;
 import com.nekowei.timeblock.vo.BlockTypeVo;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Example;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
@@ -59,4 +60,17 @@ public class BlockTypeService {
             blockTypeRepository.save(e);
         }
     }
+
+    @Transactional
+    public void delete(Integer id) {
+        blockTypeRepository.findById(id).ifPresent(e -> {
+            if (e.getParentId() == null) {
+                blockTypeRepository.findAll(Example.of(BlockTypeEntity.builder()
+                            .parentId(id).build()))
+                        .forEach(d -> blockTypeRepository.deleteById(d.getId()));
+            }
+            blockTypeRepository.deleteById(id);
+        });
+    }
+
 }

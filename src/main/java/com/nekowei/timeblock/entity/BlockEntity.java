@@ -1,5 +1,7 @@
 package com.nekowei.timeblock.entity;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -9,7 +11,9 @@ import java.time.LocalTime;
 
 @Entity
 @NoArgsConstructor
+@AllArgsConstructor
 @Data
+@Builder
 @Table(name = "t_block")
 public class BlockEntity {
 
@@ -28,8 +32,5 @@ public class BlockEntity {
 
     @Column(nullable = false)
     private Integer typeId;
-
-    @Column
-    private Integer detailId;
 
 }

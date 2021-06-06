@@ -4,6 +4,7 @@ import com.nekowei.timeblock.entity.BlockEntity;
 import com.nekowei.timeblock.entity.BlockTypeEntity;
 import com.nekowei.timeblock.service.BlockService;
 import com.nekowei.timeblock.service.BlockTypeService;
+import com.nekowei.timeblock.vo.BlockVo;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -47,14 +48,12 @@ class TimeBlockApplicationTests {
 	}
 
 	@Test
-	void saveBlockWithDetail() {
-		BlockEntity e = new BlockEntity();
+	void saveAllBlock() {
+		BlockVo e = new BlockVo();
 		e.setRecordDate(LocalDate.now());
-		e.setStartTime(LocalTime.of(21, 15));
-		e.setEndTime(LocalTime.of(21, 30));
+		e.setHour(23);
 		e.setTypeId(1);
-		e.setDetailId(2);
-		blockService.save(e);
+		blockService.saveAll(e);
 	}
 
 }

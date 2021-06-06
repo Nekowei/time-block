@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+
+    <link rel="apple-touch-icon" sizes="57x57" href="ico/apple-icon-57x57.png">
+    <link rel="apple-touch-icon" sizes="60x60" href="ico/apple-icon-60x60.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="ico/apple-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="ico/apple-icon-76x76.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="ico/apple-icon-114x114.png">
+    <link rel="apple-touch-icon" sizes="120x120" href="ico/apple-icon-120x120.png">
+    <link rel="apple-touch-icon" sizes="144x144" href="ico/apple-icon-144x144.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="ico/apple-icon-152x152.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="ico/apple-icon-180x180.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="ico/android-icon-192x192.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="ico/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="96x96" href="ico/favicon-96x96.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="ico/favicon-16x16.png">
+    <link rel="manifest" href="ico/manifest.json">
+    <meta name="msapplication-TileColor" content="#ffffff">
+    <meta name="msapplication-TileImage" content="ico/ms-icon-144x144.png">
+    <meta name="theme-color" content="#ffffff">
+
+    <link rel="stylesheet" type="text/css" href="time-block.css">
+    <script src="jquery-3.6.0.min.js"></script>
+    <script src="time-block.js?v2"></script>
+</head>
+
+<body>
+    <button onclick="$('#type-add').toggle()">添加类型</button>
+    <div id="type-add">
+        <form action="tbapi/type/add" method="POST" id="type-add-submit">
+            <input name="name" />
+            <input name="color" id="type-add-color" />
+            <select name="parentId" id="type-add-select">
+                <option value="">-</option>
+            </select>
+            <button id="type-add-button" type="submit">add</button>
+        </form>
+    </div>
+    <br />
+    <button onclick="$('.type-button-edit').toggle();$('.type-button-delete').toggle();">编辑类型</button>
+    <br />
+    <div id="type-list"></div>
+    <br />
+    <div id="current-div">
+        <div id="current-type-div">
+            <span>当前类型：</span>
+            <button id="current-type" class="type-block" disabled></button>
+        </div>
+        <div id="current-date-div">
+            <button onclick="changeDay(-1)" class="change-button">🤛 </button>
+            <span id="current-date"></span>
+            <button onclick="changeDay(1)" class="change-button">🤜 </button>
+        </div>
+    </div>
+    <br />
+    <div id="time-list">
+    </div>
+</body>
+
+</html>
