@@ -25,7 +25,8 @@ class TimeBlockApplicationTests {
 		BlockTypeEntity e = new BlockTypeEntity();
 		e.setName("rua");
 		e.setColor("#ffeedd");
-		blockTypeService.save(e);
+		e = blockTypeService.save(e);
+		blockTypeService.delete(e.getId());
 	}
 
 	@Test
@@ -34,7 +35,8 @@ class TimeBlockApplicationTests {
 		e.setName("mua");
 		e.setColor("#ffeedd");
 		e.setParentId(1);
-		blockTypeService.save(e);
+		e = blockTypeService.save(e);
+		blockTypeService.delete(e.getId());
 	}
 
 	@Test
@@ -44,7 +46,8 @@ class TimeBlockApplicationTests {
 		e.setStartTime(LocalTime.of(21, 0));
 		e.setEndTime(LocalTime.of(21, 15));
 		e.setTypeId(1);
-		blockService.save(e);
+		e = blockService.save(e);
+		blockService.delete(e);
 	}
 
 	@Test
@@ -53,7 +56,8 @@ class TimeBlockApplicationTests {
 		e.setRecordDate(LocalDate.now());
 		e.setHour(23);
 		e.setTypeId(1);
-		blockService.saveAll(e);
+		blockService.saveAll(e)
+				.forEach(be -> blockService.delete(be));
 	}
 
 }

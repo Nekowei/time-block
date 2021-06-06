@@ -19,8 +19,8 @@ public class BlockTypeService {
     @Autowired
     private BlockTypeRepository blockTypeRepository;
 
-    public void save(BlockTypeEntity e) {
-        blockTypeRepository.save(e);
+    public BlockTypeEntity save(BlockTypeEntity e) {
+        return blockTypeRepository.save(e);
     }
 
     public List<BlockTypeVo> tree() {

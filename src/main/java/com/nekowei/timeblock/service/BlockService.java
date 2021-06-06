@@ -27,8 +27,13 @@ public class BlockService {
     private BlockTypeRepository blockTypeRepository;
 
     @Transactional
-    public void save(BlockEntity s) {
-        blockRepository.save(s);
+    public BlockEntity save(BlockEntity s) {
+        int typeId = s.getTypeId();
+        s.setTypeId(null);
+        blockRepository.findOne(Example.of(s))
+                .ifPresent(old -> s.setId(old.getId()));
+        s.setTypeId(typeId);
+        return blockRepository.save(s);
     }
 
     @Transactional(readOnly = true)
@@ -69,16 +74,20 @@ public class BlockService {
     }
 
     @Transactional
-    public void saveAll(BlockVo e) {
-        List<BlockEntity> list = IntStream.range(0, 4).mapToObj(i -> {
+    public List<BlockEntity> saveAll(BlockVo e) {
+        return IntStream.range(0, 4).mapToObj(i -> {
             BlockEntity be = new BlockEntity();
             be.setRecordDate(e.getRecordDate());
-            be.setTypeId(e.getTypeId());
             be.setStartTime(LocalTime.of(e.getHour(), i * 15));
             be.setEndTime(LocalTime.of(e.getHour(), i * 15).plusMinutes(15));
-            return be;
+            blockRepository.findOne(Example.of(be))
+                    .ifPresent(old -> be.setId(old.getId()));
+            be.setTypeId(e.getTypeId());
+            return blockRepository.save(be);
         }).collect(Collectors.toList());
-        blockRepository.saveAll(list);
     }
 
+    public void delete(BlockEntity e) {
+        blockRepository.delete(e);
+    }
 }
