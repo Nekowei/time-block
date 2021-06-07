@@ -9,7 +9,7 @@
 #current-div {
     position: relative;
     width: 100%;
-    padding: 0 20%;
+    padding: 0 100px;
     height: 100px;
     margin: auto 40px;
     float: left;
@@ -30,7 +30,7 @@
 #time-list {
     float: left;
     width: 100%;
-    padding: 0 20%;
+    padding: 0 100px;
 }
 .time-list-hour-button {
     width: 60px;

@@ -33,7 +33,7 @@ $(function () {
 function loadType() {
     $.get("tbapi/type/tree", data => {
         $("#type-list").html("")
-        $("#type-add-select").html("")
+        $("#type-add-select").html("<option value='' color='#fff'>-</option>")
         data.forEach(updateTypeUI)
 
         $(".type-button").click(e => {
