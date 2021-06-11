@@ -1,6 +1,19 @@
 var currentDay = 0
+var ctx = ""
 
 $(function () {
+
+    $.ajax("/user")
+        .done(function (data) {
+            $("#username").text(data)
+        })
+        .fail(function (xhr) {
+            alert(xhr.status);
+            if (xhr.status == 401) {
+                location = "/login"
+            }
+        })
+
     loadType()
 
     $("#type-add-color").change(e => {
@@ -31,8 +44,8 @@ $(function () {
 })
 
 function loadType() {
-    $.get("tbapi/type/tree", data => {
-        $("#type-list").html("")
+    $.get(ctx + "/type/tree", data => {
+        $("#type-div").html("")
         $("#type-add-select").html("<option value='' color='#fff'>-</option>")
         data.forEach(updateTypeUI)
 
@@ -48,7 +61,7 @@ function loadType() {
         })
         $(".type-button-delete").click(e => {
             $(".type-button-delete").attr("disabled", "disabled")
-            $.post("tbapi/type/delete", { id: $(e.target).val() }, () => { }, "json")
+            $.post(ctx + "/type/delete", { id: $(e.target).val() }, () => { }, "json")
                 .done(function (data, status, xhr) {
                 })
                 .fail(function (xhr, status, e) {
@@ -64,20 +77,22 @@ function loadType() {
 
 // for each type
 function updateTypeUI(t) {
-    $("#type-list").append("<div id='type-" + t.id + "' class='type-div'></div>")
+    $("#type-div").append("<div id='type-" + t.id + "' class='type-div'></div>")
     let tid = "#type-" + t.id
     $(tid)
-        .append("<button value='" + t.id + "' style='background:" + t.color + "' class='type-button type-block'>" + t.name + "</button>")
-        .append("<button value='" + t.id + "' style='background:" + t.color + "' class='type-button-edit'>&#128296;</button>")
-        .append("<button value='" + t.id + "' style='background:" + t.color + "' class='type-button-delete'>&#10060;</button>")
-        .append("</br>")
+        .append("<div class='type major'>"
+            + "<button value='" + t.id + "' style='background:" + t.color + "' class='type-button type-block'>" + t.name + "</button>"
+            + "<button value='" + t.id + "' style='background:" + t.color + "' class='type-button-edit'>&#128296;</button>"
+            + "<button value='" + t.id + "' style='background:" + t.color + "' class='type-button-delete'>&#10060;</button>"
+            + "</div>")
     t.detail.forEach(d => {
         $(tid)
-            .append("<button value='" + d.id + "' style='background:" + d.color + "' class='type-button type-block'>" + d.name + "</button>")
-            .append("<button value='" + d.id + "' style='background:" + d.color + "' class='type-button-edit'>&#128296;</button>")
-            .append("<button value='" + d.id + "' style='background:" + d.color + "' class='type-button-delete'>&#10060;</button>")
+            .append("<div class='type minor'>"
+                + "<button value='" + d.id + "' style='background:" + d.color + "' class='type-button type-block'>" + d.name + "</button>"
+                + "<button value='" + d.id + "' style='background:" + d.color + "' class='type-button-edit'>&#128296;</button>"
+                + "<button value='" + d.id + "' style='background:" + d.color + "' class='type-button-delete'>&#10060;</button>"
+                + "</div>")
     })
-    $(tid).append("</br>")
 
     // fill the select list by the way
     $("#type-add-select").append("<option value='" + t.id + "' color='" + t.color + "'>" + t.name + "</option>")
@@ -86,10 +101,10 @@ function updateTypeUI(t) {
 function changeDay(day) {
     currentDay += day
     $(".change-button").attr("disabled", "disabled")
-    $.get("tbapi/block/date", { day: currentDay }, d => {
+    $.get(ctx + "/block/date", { day: currentDay }, d => {
         $("#current-date").text(d)
     })
-    $.get("tbapi/block/list", { day: currentDay }, data => {
+    $.get(ctx + "/block/list", { day: currentDay }, data => {
         $(".change-button").removeAttr("disabled")
         $("#time-list").html("")
         for (const [hour, list] of Object.entries(data)) {
@@ -114,7 +129,7 @@ function changeDay(day) {
 function onHourButtonClick(e) {
     if ($("#current-type").val()) {
         let t = $(e.target)
-        $.post("tbapi/block/save/all", {
+        $.post(ctx + "/block/save/all", {
             typeId: $("#current-type").val(),
             recordDate: $("#current-date").text(),
             hour: t.text()
@@ -142,7 +157,7 @@ function onHourButtonClick(e) {
 function onMinuteButtonClick(e) {
     if ($("#current-type").val()) {
         let t = $(e.target)
-        $.post("tbapi/block/save", {
+        $.post(ctx + "/block/save", {
             typeId: $("#current-type").val(),
             recordDate: $("#current-date").text(),
             startTime: t.attr("start"),

@@ -24,10 +24,11 @@
 
     <link rel="stylesheet" type="text/css" href="time-block.css?v2">
     <script src="jquery-3.6.0.min.js"></script>
-    <script src="time-block.js?v4"></script>
+    <script src="time-block.js?v9"></script>
 </head>
 
 <body>
+    <button id="username" disabled></button>
     <button onclick="$('#type-add').toggle()">添加类型</button>
     <div id="type-add">
         <form action="tbapi/type/add" method="POST" id="type-add-submit">
@@ -39,11 +40,7 @@
             <button id="type-add-button" type="submit">add</button>
         </form>
     </div>
-    <br />
     <button onclick="$('.type-button-edit').toggle();$('.type-button-delete').toggle();">编辑类型</button>
-    <br />
-    <div id="type-list"></div>
-    <br />
     <div id="current-div">
         <div id="current-type-div">
             <span>当前类型：</span>
@@ -55,9 +52,12 @@
             <button onclick="changeDay(1)" class="change-button">🤜 </button>
         </div>
     </div>
-    <br />
-    <div id="time-list">
+    <div id="type-div"></div>
+    <div id="right-div">
+        <div id="time-list">
+        </div>
     </div>
+
 </body>
 
 </html>

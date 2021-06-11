@@ -16,6 +16,6 @@ spring:
 debug: false
 server:
   servlet:
-    context-path: /tbapi
+    context-path:
 
 
