@@ -31,7 +31,7 @@
     <button id="username" disabled></button>
     <button onclick="$('#type-add').toggle()">添加类型</button>
     <div id="type-add">
-        <form action="tbapi/type/add" method="POST" id="type-add-submit">
+        <form action="/type/add" method="POST" id="type-add-submit">
             <input name="name" />
             <input name="color" id="type-add-color" />
             <select name="parentId" id="type-add-select">
