@@ -20,11 +20,14 @@ class TimeBlockApplicationTests {
 	@Autowired
 	private BlockTypeService blockTypeService;
 
+	private final String username = "nekowei";
+
 	@Test
 	void saveType() {
 		BlockTypeEntity e = new BlockTypeEntity();
 		e.setName("rua");
 		e.setColor("#ffeedd");
+		e.setUsername(username);
 		e = blockTypeService.save(e);
 		blockTypeService.delete(e.getId());
 	}
@@ -35,6 +38,7 @@ class TimeBlockApplicationTests {
 		e.setName("mua");
 		e.setColor("#ffeedd");
 		e.setParentId(1);
+		e.setUsername(username);
 		e = blockTypeService.save(e);
 		blockTypeService.delete(e.getId());
 	}
@@ -46,6 +50,7 @@ class TimeBlockApplicationTests {
 		e.setStartTime(LocalTime.of(21, 0));
 		e.setEndTime(LocalTime.of(21, 15));
 		e.setTypeId(1);
+		e.setUsername(username);
 		e = blockService.save(e);
 		blockService.delete(e);
 	}
@@ -56,7 +61,7 @@ class TimeBlockApplicationTests {
 		e.setRecordDate(LocalDate.now());
 		e.setHour(23);
 		e.setTypeId(1);
-		blockService.saveAll(e)
+		blockService.saveAll(e, username)
 				.forEach(be -> blockService.delete(be));
 	}
 

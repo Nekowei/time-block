@@ -2,6 +2,7 @@ package com.nekowei.timeblock.web;
 
 import com.nekowei.timeblock.entity.BlockTypeEntity;
 import com.nekowei.timeblock.service.BlockTypeService;
+import com.nekowei.timeblock.util.UserUtil;
 import com.nekowei.timeblock.vo.BlockTypeVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -29,6 +30,7 @@ public class BlockTypeController {
         if (!StringUtils.hasText(e.getName())) {
             return new ResponseEntity<>("name cannot be empty", HttpStatus.BAD_REQUEST);
         }
+        e.setUsername(UserUtil.getUsername());
         blockTypeService.add(e);
         return new ResponseEntity<>(HttpStatus.OK);
     }

@@ -28,4 +28,7 @@ public class BlockTypeEntity {
     @Column
     private String color;
 
+    @Column(nullable = false)
+    private String username;
+
 }

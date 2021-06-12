@@ -33,4 +33,7 @@ public class BlockEntity {
     @Column(nullable = false)
     private Integer typeId;
 
+    @Column(nullable = false)
+    private String username;
+
 }

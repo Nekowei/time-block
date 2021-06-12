@@ -74,9 +74,10 @@ public class BlockService {
     }
 
     @Transactional
-    public List<BlockEntity> saveAll(BlockVo e) {
+    public List<BlockEntity> saveAll(BlockVo e, String username) {
         return IntStream.range(0, 4).mapToObj(i -> {
             BlockEntity be = new BlockEntity();
+            be.setUsername(username);
             be.setRecordDate(e.getRecordDate());
             be.setStartTime(LocalTime.of(e.getHour(), i * 15));
             be.setEndTime(LocalTime.of(e.getHour(), i * 15).plusMinutes(15));

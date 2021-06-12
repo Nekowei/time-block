@@ -2,6 +2,7 @@ package com.nekowei.timeblock.web;
 
 import com.nekowei.timeblock.entity.BlockEntity;
 import com.nekowei.timeblock.service.BlockService;
+import com.nekowei.timeblock.util.UserUtil;
 import com.nekowei.timeblock.vo.BlockVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -31,13 +32,14 @@ public class BlockController {
 
     @PostMapping("save")
     public ResponseEntity<Void> save(@ModelAttribute BlockEntity e) {
+        e.setUsername(UserUtil.getUsername());
         blockService.save(e);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @PostMapping("save/all")
     public ResponseEntity<Void> saveAll(@ModelAttribute BlockVo e) {
-        blockService.saveAll(e);
+        blockService.saveAll(e, UserUtil.getUsername());
         return new ResponseEntity<>(HttpStatus.OK);
     }
 

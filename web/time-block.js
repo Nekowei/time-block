@@ -8,7 +8,6 @@ $(function () {
             $("#username").text(data)
         })
         .fail(function (xhr) {
-            alert(xhr.status);
             if (xhr.status == 401) {
                 location = "/login"
             }
