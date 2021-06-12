@@ -24,7 +24,7 @@ $(function () {
         $("#type-add-color").val(color)
     })
 
-    $("#type-add").hide()
+    $("#type-add-div").hide()
 
     $("#type-add-submit").submit(e => {
         $("#type-add-button").attr("disabled", "disabled")

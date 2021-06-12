@@ -3,6 +3,7 @@ package com.nekowei.timeblock.service;
 import com.nekowei.timeblock.entity.BlockEntity;
 import com.nekowei.timeblock.repo.BlockRepository;
 import com.nekowei.timeblock.repo.BlockTypeRepository;
+import com.nekowei.timeblock.util.UserUtil;
 import com.nekowei.timeblock.vo.BlockVo;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,7 +40,9 @@ public class BlockService {
     @Transactional(readOnly = true)
     public Map<Integer, List<BlockVo>> list(LocalDate date) {
         List<BlockEntity> list = blockRepository.findAll(Example.of(BlockEntity.builder()
-                .recordDate(date).build()));
+                .recordDate(date)
+                .username(UserUtil.getUsername())
+                .build()));
         for (int i = 0; i < 24; i++) {
             for (int j = 0; j < 4; j++) {
                 BlockEntity e = new BlockEntity();

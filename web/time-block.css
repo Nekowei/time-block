@@ -1,7 +1,11 @@
 .type-list {
     padding: 15px;
 }
-#type-div {
+#type-add-div {
+    margin: 10px;
+    padding: 10px;
+}
+#left-div {
     position: relative;
     width: 200px;
     float: left;

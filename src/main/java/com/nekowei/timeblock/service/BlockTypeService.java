@@ -2,6 +2,7 @@ package com.nekowei.timeblock.service;
 
 import com.nekowei.timeblock.entity.BlockTypeEntity;
 import com.nekowei.timeblock.repo.BlockTypeRepository;
+import com.nekowei.timeblock.util.UserUtil;
 import com.nekowei.timeblock.vo.BlockTypeVo;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,7 +25,10 @@ public class BlockTypeService {
     }
 
     public List<BlockTypeVo> tree() {
-        List<BlockTypeEntity> list = blockTypeRepository.findAll();
+        List<BlockTypeEntity> list = blockTypeRepository.findAll(
+                Example.of(BlockTypeEntity.builder()
+                .username(UserUtil.getUsername())
+                .build()));
         return list.stream()
                 .map(this::copy)
                 .filter(e -> e.getParentId() == null)
